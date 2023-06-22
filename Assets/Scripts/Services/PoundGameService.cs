@@ -3,7 +3,6 @@ using CodeFramework.Runtime.BaseServices;
 using CodeFramework.Runtime.Factory;
 using PoundSimulator.Scenes;
 
-
 namespace PoundSimulator.Services
 {
     public sealed class PoundGameService:GameService

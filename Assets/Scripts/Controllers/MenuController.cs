@@ -1,8 +1,6 @@
 using CodeFramework.Runtime;
 
-
-
-namespace Controllers
+namespace PoundSimulator.Controllers
 {
     public interface IMenuViewController : IViewController
     {

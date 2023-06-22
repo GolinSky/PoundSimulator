@@ -1,7 +1,7 @@
 using CodeFramework.Runtime.View;
-using Controllers;
+using PoundSimulator.Controllers;
 
-namespace View
+namespace PoundSimulator.View
 {
     public class MenuView:View<IMenuViewController>
     {

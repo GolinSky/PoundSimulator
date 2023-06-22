@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CodeFramework;
 
-
 namespace PoundSimulator.Context
 {
     public class PoundProjectContext:ProjectContext

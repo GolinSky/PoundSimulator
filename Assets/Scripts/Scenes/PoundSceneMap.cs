@@ -5,7 +5,6 @@ using CodeFramework.Runtime.BaseServices;
 using CodeFramework.Runtime.View;
 using PoundSimulator.Context;
 
-
 namespace PoundSimulator.Scenes
 {
     public class PoundSceneMap : SceneMap<PoundSceneName>
