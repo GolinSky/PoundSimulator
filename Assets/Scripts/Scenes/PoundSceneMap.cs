@@ -3,9 +3,8 @@ using CodeFramework;
 using CodeFramework.Runtime;
 using CodeFramework.Runtime.BaseServices;
 using CodeFramework.Runtime.View;
-using ExportPackage.Runtime.Scripts.Core;
 using PoundSimulator.Context;
-using UnityEngine.SceneManagement;
+
 
 namespace PoundSimulator.Scenes
 {
@@ -24,7 +23,6 @@ namespace PoundSimulator.Scenes
                 { PoundSceneName.Menu, new MenuSceneContext(ViewFactory) }
             };
         
-        protected override IHub<IService> ServiceHub { get; set; }
 
         public PoundSceneMap(IGameService gameService) : base(gameService)
         {
@@ -33,35 +31,9 @@ namespace PoundSimulator.Scenes
         }
 
 
-        protected override void OnSceneUnload(PoundSceneName key)
-        {
-            if (contextData != null)// todo:check if need key - dict 
-            {
-                foreach (var controller in contextData)
-                {
-                    controller.Release();
-                }
-            }
-        }
-
-        protected override void OnLoadScene(PoundSceneName key, LoadSceneMode loadSceneMode)
-        {
-            if (SceneContexts.TryGetValue(key, out var context))
-            {
-                contextData = context.LoadContext();
-
-                foreach (var controller in contextData)
-                {
-                    controller.Init(ServiceHub);
-                }
-            }
-            
-        }
-
         protected override void OnProjectContextLoaded(List<IService> services)
         {
             ServiceHub = new ServiceHub(services);
-            
         }
     }
 }

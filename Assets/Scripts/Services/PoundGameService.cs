@@ -3,11 +3,12 @@ using CodeFramework.Runtime.BaseServices;
 using CodeFramework.Runtime.Factory;
 using PoundSimulator.Scenes;
 
+
 namespace PoundSimulator.Services
 {
     public sealed class PoundGameService:GameService
     {
-        protected override BehaviourMap SceneMap { get;  }
+        protected override BehaviourMap SceneMap { get; }
 
         public PoundGameService()
         {
@@ -18,7 +19,6 @@ namespace PoundSimulator.Services
 
         protected override void OnStart()
         {
-         
         }
 
         protected override void OnBeforeStart()

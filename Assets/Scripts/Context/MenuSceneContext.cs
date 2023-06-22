@@ -3,6 +3,8 @@ using CodeFramework;
 using CodeFramework.Runtime;
 using CodeFramework.Runtime.BaseServices;
 using CodeFramework.Runtime.View;
+using Controllers;
+
 
 namespace PoundSimulator.Context
 {
@@ -15,7 +17,10 @@ namespace PoundSimulator.Context
         public override List<Controller> Data { get; }
         public override List<Controller> LoadContext()
         {
-            throw new System.NotImplementedException();
+            return new List<Controller>
+            {
+                new MenuController()
+            };
         }
     }
 }
