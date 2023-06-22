@@ -1,8 +1,18 @@
 using CodeFramework.Runtime;
 
+
+
 namespace Controllers
 {
-    public class MenuController : Controller
+    public interface IMenuViewController : IViewController
+    {
+    }
+
+    public interface IMenuController : IController, IMenuViewController
+    {
+    }
+
+    public class MenuController : Controller, IMenuController
     {
     }
 }
