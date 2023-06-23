@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: PoundSceneModel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: fb95a8be7fb6c9542ba6b3522fc838dd
+    m_Address: MenuController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dbcf15b8321d1fb44af8544d0336993d, type: 2}
   m_SchemaSet:

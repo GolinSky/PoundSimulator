@@ -3,8 +3,7 @@ using PoundSimulator.Controllers;
 
 namespace PoundSimulator.View
 {
-    public class MenuView:View<IMenuViewController>
+    public class MenuView : View<IMenuViewController>
     {
-        
     }
 }

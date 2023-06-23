@@ -18,8 +18,16 @@ namespace PoundSimulator.Context
         {
             return new List<Controller>
             {
-                new MenuController()
+                Construct<MenuController>()
             };
+        }
+
+
+        private Controller Construct<TController>() where TController:Controller, new()
+        {
+            var controller = new TController();
+            ViewFactory.Construct(controller); //todo: need to store somewhere 
+            return controller;
         }
     }
 }
