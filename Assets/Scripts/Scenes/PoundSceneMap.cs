@@ -25,7 +25,7 @@ namespace PoundSimulator.Scenes
 
         public PoundSceneMap(IGameService gameService) : base(gameService)
         {
-            ProjectContext = new PoundProjectContext();
+            ProjectContext = new PoundProjectContext(gameService, SceneService);
             ViewFactory = gameService.ViewFactory;
         }
 

@@ -18,3 +18,7 @@ MonoBehaviour:
       value:
         sceneAsset: {fileID: 102900000, guid: fd5fcfe70983dba46ad68724d7d1c980, type: 3}
         scenePath: Assets/Scenes/Menu.unity
+    - key: 1
+      value:
+        sceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
+        scenePath: Assets/Scenes/Main.unity
