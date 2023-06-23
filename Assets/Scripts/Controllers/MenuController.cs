@@ -4,6 +4,8 @@ namespace PoundSimulator.Controllers
 {
     public interface IMenuViewController : IViewController
     {
+        void OnStartGame();
+        void OnExitGame();
     }
 
     public interface IMenuController : IController, IMenuViewController
@@ -12,5 +14,13 @@ namespace PoundSimulator.Controllers
 
     public class MenuController : Controller, IMenuController
     {
+        public void OnStartGame()
+        {
+            
+        }
+
+        public void OnExitGame()
+        {
+        }
     }
 }
