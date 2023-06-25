@@ -15,7 +15,8 @@ namespace PoundSimulator.Context
             return new List<IService>
             {
                 new GameFlowService(GameService, SceneService),
-                new InputService(GameService)
+                new InputService(GameService),
+                new ObjectsLocationService(GameService)
             };
         }
 

@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: PlayerController
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d4617fa7841187b48aea727443aea960
+    m_Address: GameFieldController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dbcf15b8321d1fb44af8544d0336993d, type: 2}
   m_SchemaSet:
