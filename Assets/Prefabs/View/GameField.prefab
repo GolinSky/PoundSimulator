@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7774980074340777563}
   - component: {fileID: 7774980074340777562}
   - component: {fileID: 7817386395462334680}
+  - component: {fileID: 7536212952699388459}
   - component: {fileID: 1115200931485338840}
   m_Layer: 0
   m_Name: GameField
@@ -98,8 +99,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81425de2f3504fcfa76e6eb7572efa4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewComponents: []
-  mySprite: {fileID: 7774980074340777562}
+  viewComponents:
+  - {fileID: 7536212952699388459}
+--- !u!114 &7536212952699388459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7774980074340777561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f19fd7581b46a599059843e4c60e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectType: 0
   collider2D: {fileID: 1115200931485338840}
 --- !u!61 &1115200931485338840
 BoxCollider2D:

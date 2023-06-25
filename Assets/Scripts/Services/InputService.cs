@@ -11,10 +11,6 @@ namespace PoundSimulator.Services
         event Action<Vector2> OnInput;
     }
     
-    /// <summary>
-    /// register here a location(yard)
-    /// return global coord using inside a screen point
-    /// </summary>
     public class InputService: Service, IInputService, ICustomObserver<float>
     {
         private readonly ObserverSubject<float> tickService;

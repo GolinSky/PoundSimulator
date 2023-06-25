@@ -11,13 +11,8 @@ namespace PoundSimulator.Controllers
     {
         
     }
-    
-    public interface IPlayerController: IController, IPlayerViewController
-    {
-        
-    }
 
-    public class PlayerController: Controller, IPlayerController
+    public class PlayerController: Controller, IPlayerViewController
     {
         private IInputService inputService;
         private MoveComponent moveComponent;

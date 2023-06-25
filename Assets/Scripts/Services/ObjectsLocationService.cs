@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using CodeFramework;
 using CodeFramework.Runtime.BaseServices;
-using PoundSimulator.View;
+using PoundSimulator.View.Components;
 using UnityEngine;
 
 namespace PoundSimulator.Services
 {
-    public interface IObjectsLocationViewService:IViewService
+    public interface IObjectsInteractionViewService:IViewService
     {
         void Register(GameObjectType type, Interactive interactive);
+        void UnRegister(GameObjectType type);
     }
-    public class ObjectsInteractionService:Service, IObjectsLocationViewService
+    public class ObjectsInteractionService:Service, IObjectsInteractionViewService
     {
         private Dictionary<GameObjectType, Interactive> dictionary = new Dictionary<GameObjectType, Interactive>();
 
@@ -21,6 +22,11 @@ namespace PoundSimulator.Services
         public void Register(GameObjectType type, Interactive interactive)
         {
             dictionary[type] = interactive;
+        }
+
+        public void UnRegister(GameObjectType type)
+        {
+            throw new System.NotImplementedException();
         }
 
         public bool IsIntersects(GameObjectType left, GameObjectType right, Vector2 targetPosition)
