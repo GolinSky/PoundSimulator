@@ -8,14 +8,14 @@ namespace PoundSimulator.Context
 {
     public class PoundProjectContext:ProjectContext
     {
-        public override List<IService> Data { get; }
         private SceneService<PoundSceneName> SceneService { get; }
 
         public override List<IService> LoadContext()
         {
             return new List<IService>
             {
-                new GameFlowService(GameService, SceneService)
+                new GameFlowService(GameService, SceneService),
+                new InputService(GameService)
             };
         }
 

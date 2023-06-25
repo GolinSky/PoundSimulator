@@ -7,8 +7,6 @@ namespace PoundSimulator.Services
 {
     public sealed class PoundGameService:GameService
     {
-        protected override BehaviourMap SceneMap { get; }
-
         public PoundGameService()
         {
             Repository = new AddressableRepository();

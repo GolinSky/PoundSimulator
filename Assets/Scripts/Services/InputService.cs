@@ -1,7 +1,8 @@
 using System;
-using System.Numerics;
 using CodeFramework;
 using CodeFramework.Runtime.BaseServices;
+using CodeFramework.Runtime.Observer;
+using UnityEngine;
 
 namespace PoundSimulator.Services
 {
@@ -14,14 +15,37 @@ namespace PoundSimulator.Services
     /// register here a location(yard)
     /// return global coord using inside a screen point
     /// </summary>
-    public class InputService: Service, IInputService
+    public class InputService: Service, IInputService, ICustomObserver<float>
     {
+        private readonly ObserverSubject<float> tickService;
         public event Action<Vector2> OnInput;
 
         public InputService(IGameService gameService) : base(gameService)
         {
-            
+            tickService = gameService.TickService;
         }
 
+        protected override void OnInit()
+        {
+            base.OnInit();
+            tickService.AddObserver(this);
+        }
+
+        protected override void OnRelease()
+        {
+            base.OnRelease();
+            if (tickService != null)
+            {
+                tickService.RemoveObserver(this);
+            }
+        }
+
+        public void UpdateState(float deltaTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                OnInput?.Invoke(Input.mousePosition);
+            }
+        }
     }
 }

@@ -5,18 +5,17 @@ using PoundSimulator.Controllers;
 
 namespace PoundSimulator.Context
 {
-    public class MenuSceneContext:SceneContext
+    public class CoreSceneContext:SceneContext
     {
         public override List<Controller> LoadContext()
         {
             return new List<Controller>
             {
-                Construct<MenuController>()
+                Construct<PlayerController>()
             };
         }
-
-
-        private Controller Construct<TController>() where TController:Controller, new()
+        
+        private Controller Construct<TController>() where TController:Controller, new() //duplicate
         {
             return new TController();
         }

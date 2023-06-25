@@ -10,7 +10,9 @@ namespace PoundSimulator.View
     {
         [SerializeField] private Button startButton;
         [SerializeField] private Button exitButton;
-        
+
+        public override ViewType ViewType => ViewType.Ui;
+
         protected override void OnInit()
         {
             base.OnInit();
@@ -18,9 +20,9 @@ namespace PoundSimulator.View
             exitButton.onClick.AddListener(ViewController.OnExitGame);
         }
 
-        protected override void OnRelease()
+        protected override void OnBeforeDestroy()
         {
-            base.OnRelease();
+            base.OnBeforeDestroy();
             startButton.onClick.RemoveListener(ViewController.OnStartGame);
             exitButton.onClick.RemoveListener(ViewController.OnExitGame);
         }
