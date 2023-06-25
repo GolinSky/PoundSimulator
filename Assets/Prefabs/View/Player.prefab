@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8138096956378195871}
   - component: {fileID: 4931363925591375732}
   - component: {fileID: -3886920779100739877}
+  - component: {fileID: 6693612938218688753}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewComponents:
   - {fileID: -3886920779100739877}
+  collider2D: {fileID: 6693612938218688753}
 --- !u!114 &-3886920779100739877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,3 +114,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1855dcbd5e3b4515a7a67c44758fab54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &6693612938218688753
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8138096956378195840}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

@@ -45,7 +45,6 @@ namespace PoundSimulator.Services
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 OnInput?.Invoke(Input.mousePosition);
-                Debug.Log($"Input.mousePosition:{Input.mousePosition}");
             }
         }
     }

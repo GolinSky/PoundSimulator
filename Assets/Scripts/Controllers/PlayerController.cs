@@ -21,7 +21,7 @@ namespace PoundSimulator.Controllers
     {
         private IInputService inputService;
         private MoveComponent moveComponent;
-
+        private ObjectsInteractionService objectsInteractionService;
         public PlayerController(IGameService gameService) : base(gameService)
         {
         }
@@ -39,6 +39,7 @@ namespace PoundSimulator.Controllers
             base.OnInit();
             moveComponent = GetComponent<MoveComponent>();
             inputService = ServiceHub.Get<IInputService>();
+            objectsInteractionService = ServiceHub.Get<ObjectsInteractionService>();
             inputService.OnInput += OnInput;
         }
 
@@ -54,7 +55,14 @@ namespace PoundSimulator.Controllers
             if (Camera.main != null) //move camera to service
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-                moveComponent.MoveTo(worldPosition);// use move to instead
+                var canMove = objectsInteractionService.IsIntersects(
+                    GameObjectType.Player, 
+                    GameObjectType.Yard,
+                    worldPosition);
+                if (canMove)
+                {
+                    moveComponent.MoveTo(worldPosition);// use move to instead
+                }
             }
         }
     }
