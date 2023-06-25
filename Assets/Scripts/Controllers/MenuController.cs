@@ -1,4 +1,5 @@
 using CodeFramework.Runtime;
+using CodeFramework.Runtime.BaseServices;
 using PoundSimulator.Services;
 
 namespace PoundSimulator.Controllers
@@ -17,6 +18,10 @@ namespace PoundSimulator.Controllers
     {
         private IGameFlowService gameFlowService;
 
+        public MenuController(IGameService gameService) : base(gameService)
+        {
+        }
+        
         protected override void OnInit()
         {
             base.OnInit();

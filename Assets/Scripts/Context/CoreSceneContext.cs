@@ -7,17 +7,16 @@ namespace PoundSimulator.Context
 {
     public class CoreSceneContext:SceneContext
     {
+        public CoreSceneContext(IGameService gameService) : base(gameService)
+        {
+        }
+        
         public override List<Controller> LoadContext()
         {
             return new List<Controller>
             {
                 Construct<PlayerController>()
             };
-        }
-        
-        private Controller Construct<TController>() where TController:Controller, new() //duplicate
-        {
-            return new TController();
         }
     }
 }

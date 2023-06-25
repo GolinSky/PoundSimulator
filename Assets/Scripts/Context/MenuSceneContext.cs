@@ -14,11 +14,9 @@ namespace PoundSimulator.Context
                 Construct<MenuController>()
             };
         }
-
-
-        private Controller Construct<TController>() where TController:Controller, new()
+        
+        public MenuSceneContext(IGameService gameService) : base(gameService)
         {
-            return new TController();
         }
     }
 }

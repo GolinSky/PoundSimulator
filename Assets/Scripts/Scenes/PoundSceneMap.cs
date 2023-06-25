@@ -19,8 +19,8 @@ namespace PoundSimulator.Scenes
         protected override Dictionary<PoundSceneName, SceneContext> SceneContexts =>
             new()
             {
-                { PoundSceneName.Menu, new MenuSceneContext() },
-                { PoundSceneName.Main, new CoreSceneContext() }
+                { PoundSceneName.Menu, new MenuSceneContext(GameService) },
+                { PoundSceneName.Main, new CoreSceneContext(GameService) }
             };
         
 

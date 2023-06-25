@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeFramework.Runtime;
+using CodeFramework.Runtime.BaseServices;
 using PoundSimulator.Components;
 using PoundSimulator.Services;
 using UnityEngine;
@@ -21,6 +22,10 @@ namespace PoundSimulator.Controllers
         private IInputService inputService;
         private MoveComponent moveComponent;
 
+        public PlayerController(IGameService gameService) : base(gameService)
+        {
+        }
+        
         protected override List<Component<IController>> BuildsComponents()
         {
             return new List<Component<IController>>
@@ -32,9 +37,9 @@ namespace PoundSimulator.Controllers
         protected override void OnInit()
         {
             base.OnInit();
+            moveComponent = GetComponent<MoveComponent>();
             inputService = ServiceHub.Get<IInputService>();
             inputService.OnInput += OnInput;
-            moveComponent = GetComponent<MoveComponent>();
         }
 
         protected override void OnRelease()
@@ -49,7 +54,7 @@ namespace PoundSimulator.Controllers
             if (Camera.main != null) //move camera to service
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-                moveComponent.Move(worldPosition);// use move to instead
+                moveComponent.MoveTo(worldPosition);// use move to instead
             }
         }
     }
