@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: AnimalController
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 68443d2bf8a30c34d839cc410ffbddcb
+    m_Address: YardController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dbcf15b8321d1fb44af8544d0336993d, type: 2}
   m_SchemaSet:

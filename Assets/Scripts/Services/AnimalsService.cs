@@ -13,6 +13,7 @@ namespace PoundSimulator.Services
     {
         void Register(AnimalController animalController);//use interface instead
         void UnRegister(AnimalController animalController);//use interface instead
+        void MoveToTheYard(AnimalController animalController);
     }
     
     public class AnimalsService:Service, IAnimalService
@@ -38,5 +39,11 @@ namespace PoundSimulator.Services
             animalControllers.Remove(animalController);
         }
 
+        public void MoveToTheYard(AnimalController animalController)
+        {
+            UnRegister(animalController);
+            //ui callbacks
+            
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace PoundSimulator.View.Components
     {
         Bounds Bounds { get; }
         bool IsIntersects(Interactive interactive, Vector3 targetPosition);
+        bool IsIntersects(Interactive interactive);
         
         IViewController Controller { get; }
         
@@ -20,6 +21,8 @@ namespace PoundSimulator.View.Components
         [SerializeField] private GameObjectType gameObjectType;
         [SerializeField] private Collider2D collider2D;
         public Bounds Bounds => collider2D.bounds;
+
+   
 
         public IViewController Controller => ViewController;
         public Vector2 Position => transform.position;
@@ -37,6 +40,10 @@ namespace PoundSimulator.View.Components
             bounds.center = targetPosition;
             return bounds.Intersects(interactive.Bounds);
         }
-
+        
+        public bool IsIntersects(Interactive interactive)
+        {
+            return Bounds.Intersects(interactive.Bounds);
+        }
     }
 }

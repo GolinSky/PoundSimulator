@@ -17,13 +17,16 @@ namespace PoundSimulator.Services
     {
         private Interactive player;
         private Interactive yard;
+        private Interactive gameField;
 
         private List<Interactive> animals = new List<Interactive>();
         
-        public Bounds FieldBounds => yard.Bounds;
+        public Bounds FieldBounds => gameField.Bounds;
         public Vector2 PlayerPosition => player.Position;
 
         public Interactive Player => player;
+
+        public Interactive Yard => yard;
 
         public ObjectsInteractionService(IGameService gameService) : base(gameService)
         {
@@ -34,7 +37,7 @@ namespace PoundSimulator.Services
             switch (type)
             {
                 case GameObjectType.GameField:
-                    yard = interactive;
+                    gameField = interactive;
                     break;
                 case GameObjectType.Player:
                     player = interactive;
@@ -42,27 +45,19 @@ namespace PoundSimulator.Services
                 case GameObjectType.Animals:
                     animals.Add(interactive);
                     break;
+                case GameObjectType.Yard:
+                    yard = interactive;
+                    break;
             }
         }
 
         
         public bool IsPlayerInField(Vector2 targetPosition)
         {
-            return player.IsIntersects(yard, targetPosition);
+            return player.IsIntersects(gameField, targetPosition);
         }
 
-        public bool IsAnimalInField(IViewController controller, Vector2 targetPosition)
-        {
-            foreach (var interactive in animals)
-            {
-                if (interactive.Controller == controller)
-                {
-                    return interactive.IsIntersects(yard, targetPosition);
-                }
-            }
-            
-            return false;
-        }
+        
 
         public bool CheckAnimalNearPlayer(IViewController animalController, float maxDistance)
         {
@@ -97,5 +92,6 @@ namespace PoundSimulator.Services
         GameField = 0,
         Player = 1,
         Animals = 2,
+        Yard = 3,
     }
 }

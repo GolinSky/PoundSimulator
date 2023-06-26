@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CodeFramework.Runtime;
 using CodeFramework.Runtime.BaseServices;
@@ -6,19 +5,18 @@ using CodeFramework.Runtime.Observer;
 using PoundSimulator.Components;
 using PoundSimulator.Services;
 using PoundSimulator.View.Components;
-using UnityEngine;
 
 namespace PoundSimulator.Controllers
 {
     public interface IAnimalViewController:IViewController
     {
-        
     }
 
     public enum AnimalMoveMode
     {
         Default = 0,
         FollowPlayer = 1,
+        Stopped= 2,
     }
     public class AnimalController: Controller, IAnimalViewController, ICustomObserver<float>
     {
@@ -29,6 +27,8 @@ namespace PoundSimulator.Controllers
         private IAnimalService animalService;
         private MoveComponent moveComponent;
         private AnimalMoveMode animalMoveMode;
+        private Interactive yardInteractive;
+        private Interactive animalInteractive;
 
         public AnimalController(IGameService gameService) : base(gameService)
         {
@@ -83,16 +83,27 @@ namespace PoundSimulator.Controllers
                     {
                         animalMoveMode = AnimalMoveMode.FollowPlayer;
                         moveComponent.Follow(objectsInteractionService.Player);
+                        animalInteractive = objectsInteractionService.GetAnimalInteractive(this);
+                        yardInteractive = objectsInteractionService.Yard;
                     }
                     break;
                 case AnimalMoveMode.FollowPlayer:
-
-                        
-            
+                    if (yardInteractive.IsIntersects(animalInteractive))
+                    {
+                        OnYardArrived();
+                        animalMoveMode = AnimalMoveMode.Stopped;
+                    }
                     break;
-                
             }
-           
+        }
+
+        public void OnYardArrived()
+        {
+            if (animalMoveMode == AnimalMoveMode.FollowPlayer)
+            {
+                animalService.MoveToTheYard(this);
+                GameFactory.RemoveController(this);
+            }
         }
     }
 }
