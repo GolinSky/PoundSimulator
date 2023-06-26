@@ -5,6 +5,7 @@ using CodeFramework.Runtime.Observer;
 using PoundSimulator.Components;
 using PoundSimulator.Services;
 using PoundSimulator.View.Components;
+using UnityEngine.Serialization;
 
 namespace PoundSimulator.Controllers
 {
@@ -26,13 +27,15 @@ namespace PoundSimulator.Controllers
         private IPositionProviderService positionProviderService;
         private IAnimalService animalService;
         private MoveComponent moveComponent;
-        private AnimalMoveMode animalMoveMode;
         private Interactive yardInteractive;
         private Interactive animalInteractive;
+        
+        public AnimalMoveMode AnimalMoveMode { get; private set; }
+
 
         public AnimalController(IGameService gameService) : base(gameService)
         {
-            animalMoveMode = AnimalMoveMode.Default;
+            AnimalMoveMode = AnimalMoveMode.Default;
         }
         
         protected override List<Component<IController>> BuildsComponents()
@@ -75,13 +78,13 @@ namespace PoundSimulator.Controllers
 
         public void UpdateState(float deltaTime)
         {
-            switch (animalMoveMode)
+            switch (AnimalMoveMode)
             {
                 case AnimalMoveMode.Default:
                     var canFollowPlayer = objectsInteractionService.CheckAnimalNearPlayer(this, MaxDistance);
-                    if (canFollowPlayer)
+                    if (canFollowPlayer && animalService.CanFollowPlayer())
                     {
-                        animalMoveMode = AnimalMoveMode.FollowPlayer;
+                        AnimalMoveMode = AnimalMoveMode.FollowPlayer;
                         moveComponent.Follow(objectsInteractionService.Player);
                         animalInteractive = objectsInteractionService.GetAnimalInteractive(this);
                         yardInteractive = objectsInteractionService.Yard;
@@ -91,15 +94,15 @@ namespace PoundSimulator.Controllers
                     if (yardInteractive.IsIntersects(animalInteractive))
                     {
                         OnYardArrived();
-                        animalMoveMode = AnimalMoveMode.Stopped;
+                        AnimalMoveMode = AnimalMoveMode.Stopped;
                     }
                     break;
             }
         }
 
-        public void OnYardArrived()
+        private void OnYardArrived()
         {
-            if (animalMoveMode == AnimalMoveMode.FollowPlayer)
+            if (AnimalMoveMode == AnimalMoveMode.FollowPlayer)
             {
                 animalService.MoveToTheYard(this);
                 GameFactory.RemoveController(this);

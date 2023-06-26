@@ -14,6 +14,7 @@ namespace PoundSimulator.Services
     public interface IAnimalService : IService, IAnimalViewService
     {
         event Action OnAnimalGoToTheYard;
+        bool CanFollowPlayer();
 
         void Register(AnimalController animalController); //use interface instead
         void UnRegister(AnimalController animalController); //use interface instead
@@ -22,6 +23,7 @@ namespace PoundSimulator.Services
 
     public class AnimalsService : Service, IAnimalService
     {
+        private const int MaxGroupAmount = 5;
         private List<AnimalController> animalControllers = new List<AnimalController>();
 
         public event Action OnAnimalGoToTheYard;
@@ -48,7 +50,20 @@ namespace PoundSimulator.Services
         {
             OnAnimalGoToTheYard?.Invoke();
             UnRegister(animalController);
-            //ui callbacks
+        }
+
+        public bool CanFollowPlayer()
+        {
+            int count = 0;
+            foreach (var animalController in animalControllers)
+            {
+                if (animalController.AnimalMoveMode == AnimalMoveMode.FollowPlayer)
+                {
+                    count++;
+                }
+            }
+
+            return MaxGroupAmount > count;
         }
     }
 }
