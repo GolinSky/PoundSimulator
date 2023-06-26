@@ -42,7 +42,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5d255d732d8059a48992d846f9bb725d
-    m_Address: Assets/Prefabs/View/ScoreCanvas.prefab
+    m_Address: ScoreUiController
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
