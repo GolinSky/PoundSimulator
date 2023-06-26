@@ -16,6 +16,7 @@ namespace PoundSimulator.View.Components
         private float lerpTime;
         private float lerpSpeed;
         private bool useLerp;
+        private Interactive interactive;
 
         protected override void OnInit()
         {
@@ -25,6 +26,7 @@ namespace PoundSimulator.View.Components
             ChangePosition(moveComponentObserver.CurrentPosition);
             moveComponentObserver.OnMoveToPosition += MoveToPosition;
             moveComponentObserver.OnPositionChanged += ChangePosition;
+            moveComponentObserver.OnFollow += FollowTarget;
             tickService = ViewController.TickService;
             tickService.AddObserver(this);
         }
@@ -57,6 +59,13 @@ namespace PoundSimulator.View.Components
             lerpTime = 0;
             useLerp = true;
         }
+        private void FollowTarget(Interactive interactive)
+        {
+            this.interactive = interactive;
+            var nearPosition = Vector2.Lerp(cachedTransform.position, interactive.Position, Random.Range(0.7f,0.95f));
+            nearPosition.x += Random.Range(-2f, 2f);
+            MoveToPosition(nearPosition, MaxLerpClamped);
+        }
 
         public void UpdateState(float deltaTime)
         {
@@ -65,12 +74,27 @@ namespace PoundSimulator.View.Components
                 if (lerpTime < MaxLerpClamped)
                 {
                     lerpTime += deltaTime * lerpSpeed;
-                    ChangePosition(Vector2.Lerp(startPosition, targetPosition, lerpTime));
+                    if (interactive != null)
+                    {
+               //         ChangePosition(Vector2.Lerp(startPosition, interactive.Position, lerpTime));
+                    }
+             //       else
+                    {
+                        ChangePosition(Vector2.Lerp(startPosition, targetPosition, lerpTime));
+                    }
                 }
                 else
                 {
-                    useLerp = false;
                     ChangePosition(targetPosition);
+                    if (interactive != null)
+                    {
+                        var nearPosition = Vector2.Lerp(cachedTransform.position, interactive.Position, Random.Range(0.8f,0.95f));
+                        nearPosition.x += Random.Range(-1f, 1f);
+                        nearPosition.y += Random.Range(-1f, 1f);
+                        MoveToPosition(nearPosition, MaxLerpClamped);
+                        return;
+                    }
+                    useLerp = false;
                 }
             }
         }

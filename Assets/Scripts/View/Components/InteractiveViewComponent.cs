@@ -11,6 +11,8 @@ namespace PoundSimulator.View.Components
         bool IsIntersects(Interactive interactive, Vector3 targetPosition);
         
         IViewController Controller { get; }
+        
+        Vector2 Position { get; }
     }
     
     public class InteractiveViewComponent:ViewComponent, Interactive
@@ -20,6 +22,7 @@ namespace PoundSimulator.View.Components
         public Bounds Bounds => collider2D.bounds;
 
         public IViewController Controller => ViewController;
+        public Vector2 Position => transform.position;
 
         protected override void OnInit()
         {

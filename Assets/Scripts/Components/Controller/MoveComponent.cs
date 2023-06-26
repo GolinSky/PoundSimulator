@@ -1,5 +1,6 @@
 using System;
 using CodeFramework.Runtime;
+using PoundSimulator.View.Components;
 using UnityEngine;
 
 namespace PoundSimulator.Components
@@ -8,6 +9,7 @@ namespace PoundSimulator.Components
     {
         event Action<Vector2> OnPositionChanged;
         event Action<Vector2, float> OnMoveToPosition;
+        event Action<Interactive> OnFollow; 
         event Action OnStop;
         Vector2 CurrentPosition { get; }
     }
@@ -17,6 +19,7 @@ namespace PoundSimulator.Components
         private const float LerpSpeed = 1f;
         public event Action<Vector2> OnPositionChanged;
         public event Action<Vector2, float> OnMoveToPosition;
+        public event Action<Interactive> OnFollow;
         public event Action OnStop;
         
         public Vector2 CurrentPosition { get; private set; }
@@ -40,6 +43,11 @@ namespace PoundSimulator.Components
         public void MoveTo(Vector2 position, float lerp = LerpSpeed)
         {
             OnMoveToPosition?.Invoke(position, lerp);//todo: do lerp via update
+        }
+
+        public void Follow(Interactive interactive)
+        {
+            OnFollow?.Invoke(interactive);
         }
 
         public void Stop()

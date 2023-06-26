@@ -11,16 +11,19 @@ namespace PoundSimulator.Services
     {
         void Register(GameObjectType type, Interactive interactive);
         Bounds FieldBounds { get; }
+        Vector2 PlayerPosition { get; }
     }
     public class ObjectsInteractionService:Service, IObjectsInteractionViewService
     {
-
         private Interactive player;
         private Interactive yard;
 
         private List<Interactive> animals = new List<Interactive>();
         
         public Bounds FieldBounds => yard.Bounds;
+        public Vector2 PlayerPosition => player.Position;
+
+        public Interactive Player => player;
 
         public ObjectsInteractionService(IGameService gameService) : base(gameService)
         {
@@ -30,7 +33,7 @@ namespace PoundSimulator.Services
         {
             switch (type)
             {
-                case GameObjectType.Yard:
+                case GameObjectType.GameField:
                     yard = interactive;
                     break;
                 case GameObjectType.Player:
@@ -60,11 +63,38 @@ namespace PoundSimulator.Services
             
             return false;
         }
+
+        public bool CheckAnimalNearPlayer(IViewController animalController, float maxDistance)
+        {
+            foreach (var interactive in animals)
+            {
+                if (interactive.Controller == animalController)
+                {
+                    var distance = Vector2.Distance(interactive.Position, player.Position);
+                    return maxDistance > distance;
+                }
+            }
+
+            return false;
+        }
+
+        public Interactive GetAnimalInteractive(IViewController animalController)
+        {
+            foreach (var interactive in animals)
+            {
+                if (interactive.Controller == animalController)
+                {
+                    return interactive;
+                }
+            }
+
+            return null;
+        }
     }
 
     public enum GameObjectType
     {
-        Yard = 0,
+        GameField = 0,
         Player = 1,
         Animals = 2,
     }
