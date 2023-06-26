@@ -34,7 +34,7 @@ namespace PoundSimulator.Controllers
         protected override void OnInit()
         {
             base.OnInit();
-            positionProviderService = ServiceHub.Get<IPositionProviderService>();
+            positionProviderService = GetService<IPositionProviderService>();
 
             moveComponent = GetComponent<MoveComponent>();
             inputService = ServiceHub.Get<IInputService>();

@@ -12,9 +12,10 @@ namespace PoundSimulator.Scenes
         private List<Controller> contextData;
 
         protected override PoundSceneName DefaultSceneKey => PoundSceneName.Menu;
-        protected override string ModelPath => "PoundSceneModel";
         protected override ProjectContext ProjectContext { get; }
         protected IFactory<ViewBinding, Controller> ViewFactory { get; private set; }
+        protected override string ModelPath => "PoundSceneModel";
+
 
         protected override Dictionary<PoundSceneName, SceneContext> SceneContexts =>
             new()

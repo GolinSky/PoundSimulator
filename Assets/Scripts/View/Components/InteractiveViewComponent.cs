@@ -20,10 +20,9 @@ namespace PoundSimulator.View.Components
     {
         [SerializeField] private GameObjectType gameObjectType;
         [SerializeField] private Collider2D collider2D;
+       
         public Bounds Bounds => collider2D.bounds;
-
-   
-
+        
         public IViewController Controller => ViewController;
         public Vector2 Position => transform.position;
 

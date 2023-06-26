@@ -13,6 +13,8 @@ namespace PoundSimulator.Services
     
     public class InputService: Service, IInputService, ICustomObserver<float>
     {
+        private const KeyCode InputKeyCode = KeyCode.Mouse0;
+        
         private readonly ObserverSubject<float> tickService;
         public event Action<Vector2> OnInput;
 
@@ -38,7 +40,7 @@ namespace PoundSimulator.Services
 
         public void UpdateState(float deltaTime)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(InputKeyCode))
             {
                 OnInput?.Invoke(Input.mousePosition);
             }

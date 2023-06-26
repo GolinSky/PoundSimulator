@@ -25,7 +25,7 @@ namespace PoundSimulator.Controllers
         protected override void OnInit()
         {
             base.OnInit();
-            gameFlowService = ServiceHub.Get<IGameFlowService>();
+            gameFlowService = GetService<IGameFlowService>();
         }
 
         public void OnStartGame()

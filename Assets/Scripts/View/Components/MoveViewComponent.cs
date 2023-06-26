@@ -7,8 +7,14 @@ namespace PoundSimulator.View.Components
 {
     public class MoveViewComponent:ViewComponent, ICustomObserver<float>
     {
+        private const float OffsetX = 1f;
+        private const float OffsetY = 1f;
+        private const float MinTargetLerpTime = 0.8f;
+        private const float MaxTargetLerpTime = 0.95f;
         private const float MaxLerpClamped = 1;
+
         private IMoveComponentObserver moveComponentObserver;
+        private Interactive interactive;
         private ObserverSubject<float> tickService;
         private Transform cachedTransform;
         private Vector2 targetPosition;
@@ -16,7 +22,6 @@ namespace PoundSimulator.View.Components
         private float lerpTime;
         private float lerpSpeed;
         private bool useLerp;
-        private Interactive interactive;
 
         protected override void OnInit()
         {
@@ -38,6 +43,7 @@ namespace PoundSimulator.View.Components
             {
                 moveComponentObserver.OnMoveToPosition -= MoveToPosition;
                 moveComponentObserver.OnPositionChanged -= ChangePosition;
+                moveComponentObserver.OnFollow -= FollowTarget;
             }
 
             if (tickService != null)
@@ -62,9 +68,7 @@ namespace PoundSimulator.View.Components
         private void FollowTarget(Interactive interactive)
         {
             this.interactive = interactive;
-            var nearPosition = Vector2.Lerp(cachedTransform.position, interactive.Position, Random.Range(0.7f,0.95f));
-            nearPosition.x += Random.Range(-2f, 2f);
-            MoveToPosition(nearPosition, MaxLerpClamped);
+            FollowTargetInternal();
         }
 
         public void UpdateState(float deltaTime)
@@ -74,29 +78,27 @@ namespace PoundSimulator.View.Components
                 if (lerpTime < MaxLerpClamped)
                 {
                     lerpTime += deltaTime * lerpSpeed;
-                    if (interactive != null)
-                    {
-               //         ChangePosition(Vector2.Lerp(startPosition, interactive.Position, lerpTime));
-                    }
-             //       else
-                    {
-                        ChangePosition(Vector2.Lerp(startPosition, targetPosition, lerpTime));
-                    }
+                    ChangePosition(Vector2.Lerp(startPosition, targetPosition, lerpTime));
                 }
                 else
                 {
                     ChangePosition(targetPosition);
                     if (interactive != null)
                     {
-                        var nearPosition = Vector2.Lerp(cachedTransform.position, interactive.Position, Random.Range(0.8f,0.95f));
-                        nearPosition.x += Random.Range(-1f, 1f);
-                        nearPosition.y += Random.Range(-1f, 1f);
-                        MoveToPosition(nearPosition, MaxLerpClamped);
+                        FollowTargetInternal();
                         return;
                     }
                     useLerp = false;
                 }
             }
+        }
+
+        private void FollowTargetInternal()
+        {
+            var nearPosition = Vector2.Lerp(cachedTransform.position, interactive.Position, Random.Range(MinTargetLerpTime, MaxTargetLerpTime));
+            nearPosition.x += Random.Range(-OffsetX, OffsetX);
+            nearPosition.y += Random.Range(-OffsetY, OffsetY);
+            MoveToPosition(nearPosition, MaxLerpClamped);
         }
     }
 }
