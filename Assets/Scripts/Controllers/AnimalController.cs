@@ -5,7 +5,6 @@ using CodeFramework.Runtime.Observer;
 using PoundSimulator.Components;
 using PoundSimulator.Services;
 using PoundSimulator.View.Components;
-using UnityEngine.Serialization;
 
 namespace PoundSimulator.Controllers
 {
@@ -17,7 +16,7 @@ namespace PoundSimulator.Controllers
     {
         Default = 0,
         FollowPlayer = 1,
-        Stopped= 2,
+        Stopped = 2,
     }
     public class AnimalController: Controller, IAnimalViewController, ICustomObserver<float>
     {

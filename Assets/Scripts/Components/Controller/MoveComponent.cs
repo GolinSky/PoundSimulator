@@ -17,6 +17,7 @@ namespace PoundSimulator.Components
     public class MoveComponent:Component<IController>, IMoveComponentObserver
     {
         private const float LerpSpeed = 1f;
+      
         public event Action<Vector2> OnPositionChanged;
         public event Action<Vector2, float> OnMoveToPosition;
         public event Action<Interactive> OnFollow;
