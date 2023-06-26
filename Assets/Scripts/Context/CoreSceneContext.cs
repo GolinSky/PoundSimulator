@@ -15,8 +15,8 @@ namespace PoundSimulator.Context
         {
             return new List<Controller>
             {
-                Construct<PlayerController>(),
                 Construct<GameFieldController>(),
+                Construct<PlayerController>(),
                 Construct<AnimalController>(),
                 Construct<AnimalsPopulationController>()
             };

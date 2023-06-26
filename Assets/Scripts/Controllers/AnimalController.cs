@@ -3,7 +3,6 @@ using CodeFramework.Runtime;
 using CodeFramework.Runtime.BaseServices;
 using PoundSimulator.Components;
 using PoundSimulator.Services;
-using UnityEngine;
 
 namespace PoundSimulator.Controllers
 {
@@ -14,7 +13,7 @@ namespace PoundSimulator.Controllers
     
     public class AnimalController: Controller, IAnimalViewController
     {
-        private ObjectsInteractionService objectsInteractionService;
+        private IPositionProviderService positionProviderService;
         private IAnimalService animalService;
         private MoveComponent moveComponent;
         
@@ -33,16 +32,12 @@ namespace PoundSimulator.Controllers
         protected override void OnInit()
         {
             base.OnInit();
-            objectsInteractionService = ServiceHub.Get<ObjectsInteractionService>();
-            moveComponent = GetComponent<MoveComponent>();
+            positionProviderService = ServiceHub.Get<IPositionProviderService>();
             animalService = ServiceHub.Get<IAnimalService>();
             animalService.Register(this);
             
-            var bounds = objectsInteractionService.FieldBounds;
-            Vector2 spawnPosition = Vector2.zero;
-            spawnPosition.x = Random.Range(bounds.min.x, bounds.max.x);
-            spawnPosition.y = Random.Range(bounds.min.y, bounds.max.y);
-            moveComponent.Move(spawnPosition);
+            moveComponent = GetComponent<MoveComponent>();
+            moveComponent.Move(positionProviderService.GetRandomPosition());
         }
 
         protected override void OnRelease()

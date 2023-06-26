@@ -17,6 +17,8 @@ namespace PoundSimulator.Controllers
         private IInputService inputService;
         private MoveComponent moveComponent;
         private ObjectsInteractionService objectsInteractionService;
+        private IPositionProviderService positionProviderService;
+
         public PlayerController(IGameService gameService) : base(gameService)
         {
         }
@@ -32,10 +34,13 @@ namespace PoundSimulator.Controllers
         protected override void OnInit()
         {
             base.OnInit();
+            positionProviderService = ServiceHub.Get<IPositionProviderService>();
+
             moveComponent = GetComponent<MoveComponent>();
             inputService = ServiceHub.Get<IInputService>();
             objectsInteractionService = ServiceHub.Get<ObjectsInteractionService>();
             inputService.OnInput += OnInput;
+            moveComponent.Move(positionProviderService.GetRandomPosition());
         }
 
         protected override void OnRelease()

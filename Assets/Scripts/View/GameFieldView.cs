@@ -1,7 +1,5 @@
 using CodeFramework.Runtime.View;
 using PoundSimulator.Controllers;
-using PoundSimulator.Services;
-using UnityEngine;
 
 namespace PoundSimulator.View
 {
