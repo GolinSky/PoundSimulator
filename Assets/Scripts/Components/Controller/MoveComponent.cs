@@ -9,6 +9,7 @@ namespace PoundSimulator.Components
         event Action<Vector2> OnPositionChanged;
         event Action<Vector2, float> OnMoveToPosition;
         event Action OnStop;
+        Vector2 CurrentPosition { get; }
     }
 
     public class MoveComponent:Component<IController>, IMoveComponentObserver
@@ -17,6 +18,8 @@ namespace PoundSimulator.Components
         public event Action<Vector2> OnPositionChanged;
         public event Action<Vector2, float> OnMoveToPosition;
         public event Action OnStop;
+        
+        public Vector2 CurrentPosition { get; private set; }
 
         public override void Init(IController entity)
         {
@@ -30,6 +33,7 @@ namespace PoundSimulator.Components
 
         public void Move(Vector2 position)
         {
+            CurrentPosition = position;
             OnPositionChanged?.Invoke(position);
         }
 

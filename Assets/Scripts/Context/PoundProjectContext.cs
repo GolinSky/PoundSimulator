@@ -16,7 +16,8 @@ namespace PoundSimulator.Context
             {
                 new GameFlowService(GameService, SceneService),
                 new InputService(GameService),
-                new ObjectsInteractionService(GameService)
+                new ObjectsInteractionService(GameService),
+                new AnimalsService(GameService),
             };
         }
 

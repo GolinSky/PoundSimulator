@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CodeFramework.Runtime;
 using CodeFramework.Runtime.BaseServices;
 using PoundSimulator.Controllers;
-using PoundSimulator.View;
 
 namespace PoundSimulator.Context
 {
@@ -17,7 +16,9 @@ namespace PoundSimulator.Context
             return new List<Controller>
             {
                 Construct<PlayerController>(),
-                Construct<GameFieldController>()
+                Construct<GameFieldController>(),
+                Construct<AnimalController>(),
+                Construct<AnimalsPopulationController>()
             };
         }
     }

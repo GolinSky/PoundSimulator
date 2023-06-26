@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeFramework;
+using CodeFramework.Runtime;
 using CodeFramework.Runtime.BaseServices;
 using PoundSimulator.View.Components;
 using UnityEngine;
@@ -9,11 +10,17 @@ namespace PoundSimulator.Services
     public interface IObjectsInteractionViewService:IViewService
     {
         void Register(GameObjectType type, Interactive interactive);
-        void UnRegister(GameObjectType type);
+        Bounds FieldBounds { get; }
     }
     public class ObjectsInteractionService:Service, IObjectsInteractionViewService
     {
-        private Dictionary<GameObjectType, Interactive> dictionary = new Dictionary<GameObjectType, Interactive>();
+
+        private Interactive player;
+        private Interactive yard;
+
+        private List<Interactive> animals = new List<Interactive>();
+        
+        public Bounds FieldBounds => yard.Bounds;
 
         public ObjectsInteractionService(IGameService gameService) : base(gameService)
         {
@@ -21,17 +28,37 @@ namespace PoundSimulator.Services
         
         public void Register(GameObjectType type, Interactive interactive)
         {
-            dictionary[type] = interactive;
+            switch (type)
+            {
+                case GameObjectType.Yard:
+                    yard = interactive;
+                    break;
+                case GameObjectType.Player:
+                    player = interactive;
+                    break;
+                case GameObjectType.Animals:
+                    animals.Add(interactive);
+                    break;
+            }
         }
 
-        public void UnRegister(GameObjectType type)
+        
+        public bool IsPlayerInField(Vector2 targetPosition)
         {
-            throw new System.NotImplementedException();
+            return player.IsIntersects(yard, targetPosition);
         }
 
-        public bool IsIntersects(GameObjectType left, GameObjectType right, Vector2 targetPosition)
+        public bool IsAnimalInField(IViewController controller, Vector2 targetPosition)
         {
-            return dictionary[left].IsIntersects(dictionary[right], targetPosition);//not fast&secure access via key
+            foreach (var interactive in animals)
+            {
+                if (interactive.Controller == controller)
+                {
+                    return interactive.IsIntersects(yard, targetPosition);
+                }
+            }
+            
+            return false;
         }
     }
 
@@ -39,5 +66,6 @@ namespace PoundSimulator.Services
     {
         Yard = 0,
         Player = 1,
+        Animals = 2,
     }
 }

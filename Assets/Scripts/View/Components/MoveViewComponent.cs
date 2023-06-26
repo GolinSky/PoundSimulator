@@ -13,15 +13,16 @@ namespace PoundSimulator.View.Components
         private Transform cachedTransform;
         private Vector2 targetPosition;
         private Vector2 startPosition;
-        private bool useLerp;
         private float lerpTime;
         private float lerpSpeed;
+        private bool useLerp;
 
         protected override void OnInit()
         {
             base.OnInit();
             cachedTransform = transform;
             moveComponentObserver = ViewController.GetComponentObserver<IMoveComponentObserver>();
+            ChangePosition(moveComponentObserver.CurrentPosition);
             moveComponentObserver.OnMoveToPosition += MoveToPosition;
             moveComponentObserver.OnPositionChanged += ChangePosition;
             tickService = ViewController.TickService;

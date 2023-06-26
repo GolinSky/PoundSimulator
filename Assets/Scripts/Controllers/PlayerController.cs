@@ -50,10 +50,7 @@ namespace PoundSimulator.Controllers
             if (Camera.main != null) //move camera to service
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-                var canMove = objectsInteractionService.IsIntersects(
-                    GameObjectType.Player, 
-                    GameObjectType.Yard,
-                    worldPosition);
+                var canMove = objectsInteractionService.IsPlayerInField(worldPosition);
                 if (canMove)
                 {
                     moveComponent.MoveTo(worldPosition);// use move to instead
