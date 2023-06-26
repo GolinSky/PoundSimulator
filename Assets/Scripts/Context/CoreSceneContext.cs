@@ -19,7 +19,8 @@ namespace PoundSimulator.Context
                 Construct<PlayerController>(),
                 Construct<AnimalController>(),
                 Construct<AnimalsPopulationController>(),
-                Construct<YardController>()
+                Construct<YardController>(),
+                Construct<ScoreUiController>()
             };
         }
     }
